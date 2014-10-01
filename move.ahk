@@ -152,6 +152,11 @@ update_my_coord_queue(Byref x, Byref y)
     }
     my_coord_queue[0] := x*1000 + y
 }
+MsgBox_mycoordqueue()
+{
+    global my_coord_queue
+    MsgBox % my_coord_queue.1 my_coord_queue.2 my_coord_queue.3 my_coord_queue.4
+}
 is_all_same_my_coord_queue(Byref check_size="")
 {
     global my_coord_queue
@@ -322,13 +327,12 @@ move(Byref x, Byref y, Byref map_name:="", Byref gap:=0)
 
         if(is_all_same_my_coord_queue(4) = 0)
         {
-            if (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y)
+            if (p_x = x or p_y = y)
             {
                 move_random()
                 sleep %time_moving%
             }
         }
-
         move_one_step()
         sleep %time_moving%
         
@@ -338,13 +342,16 @@ move(Byref x, Byref y, Byref map_name:="", Byref gap:=0)
 f1::
 get_map_board()
 return
-f2::
-move(4,13,"동부여연실언니",0)
+f4::
+move(10,8,"",0)
 return
 f3::
 exitapp
 return
- 
+
+sleep 10000
+return
+
 
 
 CATCH_MY_COORD:
