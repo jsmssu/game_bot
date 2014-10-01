@@ -251,7 +251,7 @@ move_one_step()
 	}
 }
 
-move(Byref x, Byref y, Byref map_name="")
+move(Byref x, Byref y, Byref map_name:="", Byref gap:=0)
 { 
     global p_x
     global p_y
@@ -261,11 +261,16 @@ move(Byref x, Byref y, Byref map_name="")
 
     moving_direction := "g"
     
+    x_range_low := x - gap
+    x_range_high := x + gap
+    y_range_low := y - gap
+    y_range_high := y + gap
 
-    time_moving  = 300
+    time_moving  := 50
     p_x := getX()
     p_y := getY()
     clear_my_coord_queue()
+    update_my_coord_queue(p_x,p_y)
     direction := "x"
     Settimer, CATCH_MY_COORD,200
 	loop
@@ -275,10 +280,9 @@ move(Byref x, Byref y, Byref map_name="")
         ; 원하는 맵에 다 왔을때
         ; 목적지에 정확히 갔을때 리턴
          
-
-
-		if ( (moving_direction = "s") or (p_x = -1 or p_y = -1) or (map_name != "" and is_the_map(map_name) = 0) or (x = p_x and y = p_y))
+		if ( (moving_direction = "s") or (p_x = -1 or p_y = -1) or (map_name != "" and is_the_map(map_name) = 0) or (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y))
 		{
+            MsgBox 멈춤
             moving_direction := "s"
             Settimer, CATCH_MY_COORD,off
 			return 0
@@ -318,15 +322,15 @@ move(Byref x, Byref y, Byref map_name="")
 
         if(is_all_same_my_coord_queue(4) = 0)
         {
-            if (p_x = x or p_y = y)
+            if (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y)
             {
                 move_random()
-                sleep 100
+                sleep %time_moving%
             }
         }
 
         move_one_step()
-        sleep 100
+        sleep %time_moving%
         
 	}
 	return -1
@@ -336,7 +340,7 @@ get_map_board()
 return
 f2::
 ;move(4,13,"동부여성")
-move(10,10)
+move(10,8)
 return
 f3::
 exitapp
@@ -363,3 +367,4 @@ if (is_all_same_my_coord_queue(4) = 0)
     }
 }
 return
+ 
