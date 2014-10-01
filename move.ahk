@@ -280,7 +280,7 @@ move(Byref x, Byref y, Byref map_name:="", Byref gap:=0)
         ; 원하는 맵에 다 왔을때
         ; 목적지에 정확히 갔을때 리턴
          
-		if ( (moving_direction = "s") or (p_x = -1 or p_y = -1) or (map_name != "" and is_the_map(map_name) = 0) or (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y))
+		if ( (moving_direction = "s") or (p_x = -1 or p_y = -1) or (map_name != "" and is_the_map(map_name) != 0) or (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y))
 		{
             MsgBox 멈춤
             moving_direction := "s"
@@ -339,8 +339,7 @@ f1::
 get_map_board()
 return
 f2::
-;move(4,13,"동부여성")
-move(10,8)
+move(4,13,"동부여연실언니",0)
 return
 f3::
 exitapp
