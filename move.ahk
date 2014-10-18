@@ -97,7 +97,7 @@ is_the_map(Byref map_name)
     global mapboard_right_bottom_y
 
     p := map_path . "\" . map_name . ".png"
-	ImageSearch, FoundX, FoundY, %mapboard_left_top_x%, %mapboard_left_top_y%, %mapboard_right_bottom_x%, %mapboard_right_bottom_y%, %p%
+	ImageSearch, FoundX, FoundY, %mapboard_left_top_x%, %mapboard_left_top_y%, %mapboard_right_bottom_x%, %mapboard_right_bottom_y%, *Trans0000FF %p%
 	if(ErrorLevel = 0)
 	{
 		return 0
@@ -361,15 +361,6 @@ move(Byref x,Byref y, Byref map_name:="", Byref gap:=0)
     y_range_low := y - gap
     y_range_high := y + gap
 
-    send {esc}
-    sleep 100
-    send {enter}
-    sleep 100
-    send MOVE
-    sleep 100
-    send {esc}
-    sleep 100
-
     clear_my_coord_queue()
     p_x := getX()
     p_y := getY()
@@ -380,7 +371,7 @@ move(Byref x,Byref y, Byref map_name:="", Byref gap:=0)
     direction_xy := "x"
     move_flag := "g"
 
-    Settimer, CATCH_MY_COORD,100
+    Settimer, CATCH_MY_COORD,100, 2
 
     while (1)
     {  
@@ -414,24 +405,24 @@ Gui,Add,Edit,x150 y80 h20 w100 vbi,5
 Gui,Add,Button,x250 y40 h20 w50 gWhySUBMMIT,È®ÀÎ
 return
 
-¼º1 := ["1", [[74, 24], [65, 24], [65, 28], [43, 29]]]
-¼º2 := ["2", [[73, 27], [58, 27], [58, 29], [58, 29], [43, 29]]]
-¼º3 := ["3", [[73, 29], [43, 29], [43, 29], [43, 28]]]
-¼º4 := ["4", [[72, 29], [43, 29], [43, 28]]]
-¼º5 := ["5", [[72, 27], [49, 29], [43, 29]]]
-¼º6 := ["6", [[75, 29], [43, 29]]]
-¼º7 := ["7", [[74, 29], [43, 30]]]
-¼º8 := ["8", [[73, 29], [43, 29]]]
-¼º9 := ["9", [[75, 29], [43, 29], [43, 28]]]
-¼º10 := ["10", [[74, 29], [43, 29], [43, 28]]]
+;¼º1 := ["1", [[74, 24], [65, 24], [65, 28], [43, 29]]]
+;¼º2 := ["2", [[73, 27], [58, 27], [58, 29], [58, 29], [43, 29]]]
+;¼º3 := ["3", [[73, 29], [43, 29], [43, 29], [43, 28]]]
+;¼º4 := ["4", [[72, 29], [43, 29], [43, 28]]]
+;¼º5 := ["5", [[72, 27], [49, 29], [43, 29]]]
+;¼º6 := ["6", [[75, 29], [43, 29]]]
+;¼º7 := ["7", [[74, 29], [43, 30]]]
+;¼º8 := ["8", [[73, 29], [43, 29]]]
+;¼º9 := ["9", [[75, 29], [43, 29], [43, 28]]]
+;¼º10 := ["10", [[74, 29], [43, 29], [43, 28]]]
 
 
-»ç½¿±¼1 := [[4, 13], [4, 11], [4, 10], [4, 8], [4, 7], [4, 7], [5, 7], [5, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6], [12, 6], [13, 6], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10], [13, 11], [13, 12], [13, 13], [14, 13], [15, 13], [16, 13], [17, 13], [18, 13], [20, 13]]
-»ç½¿±¼2 := [[6, 8], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12], [7, 13], [7, 14], [7, 15], [7, 16], [7, 17], [7, 18], [7, 20], [7, 21], [7, 22], [7, 23], [7, 24], [7, 25], [8, 25], [10, 27], [10, 30]]
-»ç½¿±¼3 := [[4, 8], [4, 9], [4, 10], [4, 11], [4, 12], [5, 12], [6, 12], [7, 12], [8, 12], [9, 12], [10, 12], [11, 12], [12, 12], [13, 12], [14, 12], [15, 12], [16, 12], [17, 12], [17, 14], [18, 14], [25, 14]]
-»ç½¿±¼4 := [[5, 9], [8, 9], [10, 9], [12, 9], [13, 9], [14, 9], [15, 9], [16, 9], [16, 9], [17, 9], [18, 9], [19, 9], [19, 9], [20, 9], [21, 9], [22, 9], [23, 9], [24, 9], [25, 9], [25, 10], [25, 11], [25, 12], [25, 13], [25, 17]]
-»ç½¿±¼5 := [[5, 8], [5, 10], [5, 11], [5, 12], [5, 13], [6, 13], [7, 13], [8, 13], [10, 13], [12, 13], [13, 13], [14, 13], [15, 13], [17, 13], [18, 13], [19, 13], [20, 13], [21, 13], [21, 12], [21, 11], [21, 8], [21, 7], [21, 6], [21, 5], [21, 4], [21, 3], [21, 2], [21, -1]]
-»ç½¿±¼6 := [[13, 25], [11, 25], [9, 25], [8, 25] [7,25], [7,24], [7,22], [7,20], [7,17],  [18, 22], [13, 17], [13, 15], [13, 11], [13, 9], [12, 9], [10, 9], [7, 9], [5, 9]]
+;»ç½¿±¼1 := [[4, 13], [4, 11], [4, 10], [4, 8], [4, 7], [4, 7], [5, 7], [5, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6], [12, 6], [13, 6], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10], [13, 11], [13, 12], [13, 13], [14, 13], [15, 13], [16, 13], [17, 13], [18, 13], [20, 13]]
+;»ç½¿±¼2 := [[6, 8], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12], [7, 13], [7, 14], [7, 15], [7, 16], [7, 17], [7, 18], [7, 20], [7, 21], [7, 22], [7, 23], [7, 24], [7, 25], [8, 25], [10, 27], [10, 30]]
+;»ç½¿±¼3 := [[4, 8], [4, 9], [4, 10], [4, 11], [4, 12], [5, 12], [6, 12], [7, 12], [8, 12], [9, 12], [10, 12], [11, 12], [12, 12], [13, 12], [14, 12], [15, 12], [16, 12], [17, 12], [17, 14], [18, 14], [25, 14]]
+;»ç½¿±¼4 := [[5, 9], [8, 9], [10, 9], [12, 9], [13, 9], [14, 9], [15, 9], [16, 9], [16, 9], [17, 9], [18, 9], [19, 9], [19, 9], [20, 9], [21, 9], [22, 9], [23, 9], [24, 9], [25, 9], [25, 10], [25, 11], [25, 12], [25, 13], [25, 17]]
+;»ç½¿±¼5 := [[5, 8], [5, 10], [5, 11], [5, 12], [5, 13], [6, 13], [7, 13], [8, 13], [10, 13], [12, 13], [13, 13], [14, 13], [15, 13], [17, 13], [18, 13], [19, 13], [20, 13], [21, 13], [21, 12], [21, 11], [21, 8], [21, 7], [21, 6], [21, 5], [21, 4], [21, 3], [21, 2], [21, -1]]
+;»ç½¿±¼6 := [[13, 25], [11, 25], [9, 25], [8, 25] [7,25], [7,24], [7,22], [7,20], [7,17],  [18, 22], [13, 17], [13, 15], [13, 11], [13, 9], [12, 9], [10, 9], [7, 9], [5, 9]]
 
 
 
@@ -441,36 +432,70 @@ getRandomTime(Byref l, Byref h)
     return %ramdom_tmp%
 }
 
-use_magic()
-{
-    global attack
-    global gong
-    controlsend, ,%attack% , ¹Ù¶÷ÀÇ³ª¶ó
-    sleep getRandomTime(100,300)
-    controlsend, ,{right}, ¹Ù¶÷ÀÇ³ª¶ó
-    sleep getRandomTime(100,300)
-    controlsend, ,{enter}, ¹Ù¶÷ÀÇ³ª¶ó
-    sleep getRandomTime(50,100)
-    controlsend, ,%gong% , ¹Ù¶÷ÀÇ³ª¶ó
-    sleep getRandomTime(50,100)
-}
-moveToDest(map_start, Byref array_way,Byref end_x,Byref end_y)
+moveToDest(Byref map_start, Byref array_way,Byref end_x,Byref end_y)
 {
     loop % array_way.MaxIndex()
     {
-        move(array_way[A_index][1], array_way[A_index][2], %map_start%, 1)
+        move(array_way[A_index][1], array_way[A_index][2], map_start, 1)
     }
-    move(end_x, end_y, %map_start%, 0)
+    move(end_x, end_y, map_start, 0)
+
+    Settimer, ATTACK,1400, 1
+    »ç½¿±¼1 := [[4, 13], [4, 11], [4, 10], [4, 8], [4, 7], [4, 7], [5, 7], [5, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6], [12, 6], [13, 6], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10], [13, 11], [13, 12], [13, 13], [14, 13], [15, 13], [16, 13], [17, 13], [18, 13]]
+    »ç½¿±¼2 := [[6, 8], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12], [7, 13], [7, 14], [7, 15], [7, 16], [7, 17], [7, 18], [7, 20], [7, 21], [7, 22], [7, 23], [7, 24], [7, 25], [8, 25], [10, 27]]
+    »ç½¿±¼3 := [[4, 8], [4, 9], [4, 10], [4, 11], [4, 12], [5, 12], [6, 12], [7, 12], [8, 12], [9, 12], [10, 12], [11, 12], [12, 12], [13, 12], [14, 12], [15, 12], [16, 12], [17, 12], [17, 14], [18, 14]]
+    »ç½¿±¼4 := [[5, 9], [8, 9], [10, 9], [12, 9], [13, 9], [14, 9], [15, 9], [16, 9], [16, 9], [17, 9], [18, 9], [19, 9], [19, 9], [20, 9], [21, 9], [22, 9], [23, 9], [24, 9], [25, 9], [25, 10], [25, 11], [25, 12], [25, 13]]
+    »ç½¿±¼5 := [[5, 8], [5, 10], [5, 11], [5, 12], [5, 13], [6, 13], [7, 13], [8, 13], [10, 13], [12, 13], [13, 13], [14, 13], [15, 13], [17, 13], [18, 13], [19, 13], [20, 13], [21, 13], [21, 12], [21, 11], [21, 8], [21, 7], [21, 6], [21, 5], [21, 4], [21, 3], [21, 2]]
+    »ç½¿±¼6 := [[13, 25], [11, 25], [9, 25], [8, 25] [7,25], [7,24], [7,22], [7,20], [7,17],  [18, 22], [13, 17], [13, 15], [13, 11], [13, 9], [12, 9], [10, 9], [7, 9]]
+
+    loop % »ç½¿±¼1.MaxIndex()
+        move(»ç½¿±¼1[A_index][1], »ç½¿±¼1[A_index][2], "»ç½¿±¼1", 1)
+    move( 20, 13, "»ç½¿±¼1", 0)
+    loop % »ç½¿±¼2.MaxIndex()
+        move(»ç½¿±¼2[A_index][1], »ç½¿±¼2[A_index][2], "»ç½¿±¼2", 1)
+    move( 10, 30, "»ç½¿±¼2", 0)
+    loop % »ç½¿±¼3.MaxIndex()
+        move(»ç½¿±¼3[A_index][1], »ç½¿±¼3[A_index][2], "»ç½¿±¼3", 1)
+    move( 25, 14, "»ç½¿±¼3", 0)
+
+
+    loop % »ç½¿±¼4.MaxIndex()
+        move(»ç½¿±¼4[A_index][1], »ç½¿±¼4[A_index][2], "»ç½¿±¼4", 1)
+    move( 25, 17, "»ç½¿±¼4", 0)
+    loop % »ç½¿±¼5.MaxIndex()
+        move(»ç½¿±¼5[A_index][1], »ç½¿±¼5[A_index][2], "»ç½¿±¼5", 1)
+    move( 21, 0, "»ç½¿±¼5", 0)
+    loop % »ç½¿±¼6.MaxIndex()
+        move(»ç½¿±¼6[A_index][1], »ç½¿±¼6[A_index][2], "»ç½¿±¼6", 1)
+    move( 5, 9, "»ç½¿±¼6", 0)
+    Settimer, ATTACK,off
 }
 
 f1::
-moveToDest(1, [[73, 21], [72, 28], [43, 28]], 43, 27)
+get_mapname_board()
+moveToDest("1", [[73, 21], [72, 28], [43, 28]], 43, 27)
 return
 
 f2::
 move_flag := "s"
 return
 
+f3::
+global move_flag
+if (move_flag = "g")
+{
+    move_flag = p
+}
+else if (move_flag = "p")
+{
+    move_flag = g
+}
+return
+
+f4::
+MsgBox %goal_x% or p_y = %goal_y%
+return
+ 
 
 ; #####     #######    #######    ######     ######  
 ;#     #    #     #    #     #    #     #    #     # 
@@ -482,90 +507,102 @@ return
 
 CATCH_MY_COORD:
 global move_flag
-p_x := getX()
-p_y := getY()
-if ((moving_map != "" and is_the_map(moving_map) != 0)
-        or (p_x = -1 and p_y = -1)) 
+if (move_flag = "g")
 {
-    move_flag := "s"
-}
 
-if (p_x != -1 and p_y != -1)
-{
-    update_my_coord_queue(p_x,p_y)
-}
-
-
-if (is_all_same_my_coord_queue(5) = 0) 
-{
-    if (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y)
+    p_x := getX()
+    p_y := getY()
+    if ((moving_map != "" and is_the_map(moving_map) != 0)
+            or (p_x = -1 and p_y = -1)) 
     {
-         move_flag := "s"
+        move_flag := "s"
     }
-    else if (p_x = goal_x or p_y = goal_y)
+
+    if (p_x != -1 and p_y != -1)
     {
-        direction_lrud := rightangle_direction()
-        if (move_flag = "g")
-        {
-            move_one_step()
-        }
-        else
-        {
-            move_flag := "s"
-            ;Settimer, CATCH_MY_COORD,off
-        }
-        return
+        update_my_coord_queue(p_x,p_y)
     }
-    else if (direction_xy = "x")
+
+
+    if (is_all_same_my_coord_queue(5) = 0) 
+    {
+        if (x_range_low <= p_x and x_range_high >= p_x and y_range_low <= p_y and y_range_high >= p_y)
+        {
+             move_flag := "s"
+        }
+        else if (p_x = goal_x or p_y = goal_y)
+        {
+            direction_lrud := rightangle_direction()
+            if (move_flag = "g")
+            {
+                move_one_step()
+            }
+            else
+            {
+                move_flag := "s"
+                ;Settimer, CATCH_MY_COORD,off
+            }
+            return
+        }
+        else if (direction_xy = "x")
+        {
+            direction_xy:= "y"
+        }
+        else if (direction_xy = "y")
+        {
+            direction_xy:= "x"
+        }
+    } 
+    if (p_x = goal_x and p_y = goal_y)
+    {
+        move_flag := "s"
+    } 
+    else if(p_x = goal_x)
     {
         direction_xy:= "y"
     }
-    else if (direction_xy = "y")
+    else if(p_y = goal_y)
     {
         direction_xy:= "x"
     }
-} 
-if (p_x = goal_x and p_y = goal_y)
-{
-    move_flag := "s"
-} 
-else if(p_x = goal_x)
-{
-    direction_xy:= "y"
-}
-else if(p_y = goal_y)
-{
-    direction_xy:= "x"
-}
 
-if (direction_xy = "x")
+    if (direction_xy = "x")
+    {
+        if(p_x > goal_x)
+	    {
+		    direction_lrud := "l"
+	    }
+	    else if(p_x < goal_x)
+	    {
+		    direction_lrud := "r"
+	    }
+    } 
+    else if (direction_xy = "y")
+    {
+        if(p_y > goal_y)
+	    {
+		    direction_lrud := "u"
+	    }
+	    else if(p_y < goal_y)
+	    {
+		    direction_lrud := "d"
+	    }
+    } 
+}
+else if (move_flag = "p")
 {
-    if(p_x > goal_x)
-	{
-		direction_lrud := "l"
-	}
-	else if(p_x < goal_x)
-	{
-		direction_lrud := "r"
-	}
-} 
-else if (direction_xy = "y")
-{
-    if(p_y > goal_y)
-	{
-		direction_lrud := "u"
-	}
-	else if(p_y < goal_y)
-	{
-		direction_lrud := "d"
-	}
-} 
+
+}
 
 if (move_flag = "g")
 {
     move_one_step()
 }
-else
+else if (move_flag = "p")
+{
+
+}
+else if (move_flag = "s")
 {
     Settimer, CATCH_MY_COORD,off
 }
@@ -573,6 +610,27 @@ else
 return
 
 
+ATTACK:
+controlsend, ,%attack% , ¹Ù¶÷ÀÇ³ª¶ó
+if(direction_lrud = "l")
+{
+	controlsend, ,{left} , ¹Ù¶÷ÀÇ³ª¶ó
+}
+else if(direction_lrud = "r")
+{
+	controlsend, ,{right} , ¹Ù¶÷ÀÇ³ª¶ó
+}
+else if(direction_lrud = "u")
+{
+	controlsend, ,{up} , ¹Ù¶÷ÀÇ³ª¶ó
+}
+else if(direction_lrud = "d")
+{
+	controlsend, ,{down} , ¹Ù¶÷ÀÇ³ª¶ó
+}
+controlsend, ,{enter}, ¹Ù¶÷ÀÇ³ª¶ó
+controlsend, ,%gong% , ¹Ù¶÷ÀÇ³ª¶ó
+return
 
 WhySUBMMIT:
 Gui, Submit
